@@ -1,1 +1,101 @@
 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - My Advanced Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            background: #444;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff6347;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            color: #ff6347;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Our Gallery</h1>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index2.html">About</a>
+        <a href="index3.html">Services</a>
+        <a href="index4.html">Gallery</a>
+        <a href="index5.html">Contact</a>
+    </nav>
+
+    <div class="container">
+        <h1>A Glimpse Into Our Work</h1>
+        <p>Explore our gallery to see some of the projects we’ve worked on. From web design to digital marketing campaigns, our work speaks for itself.</p>
+
+        <div class="gallery">
+            <img src="https://via.placeholder.com/600x400" alt="Gallery Image 1">
+            <img src="https://via.placeholder.com/600x400" alt="Gallery Image 2">
+            <img src="https://via.placeholder.com/600x400" alt="Gallery Image 3">
+            <img src="https://via.placeholder.com/600x400" alt="Gallery Image 4">
+            <img src="https://via.placeholder.com/600x400" alt="Gallery Image 5">
+            <img src="https://via.placeholder.com/600x400" alt="Gallery Image 6">
+        </div>
+    </div>
+
+</body>
+
+</html>
