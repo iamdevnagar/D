@@ -1,50 +1,26 @@
+const WebSocket = require('ws');
 const express = require('express');
-const bodyParser = require('body-parser');
-const nodemailer = require('nodemailer');
+const http = require('http');
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public')); // Serve static files (like HTML)
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
 
-// Array to store messages
-const messages = [];
-
-// Route to handle contact form submission
-app.post('/contact', (req, res) => {
-    const { name, email, message } = req.body;
-
-    // Store the message
-    messages.push({ name, message });
-
-    // Set up nodemailer to send an email
-    const transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'your-email@gmail.com',
-            pass: 'your-email-password'
-        }
+wss.on('connection', ws => {
+    ws.on('message', message => {
+        // Broadcast message to all connected clients
+        wss.clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+                client.send(message);
+            }
+        });
     });
 
-    const mailOptions = {
-        from: email,
-        to: 'your-email@gmail.com',
-        subject: `New Contact Message from ${name}`,
-        text: message
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return res.status(500).send('Error sending email');
-        }
-        res.status(200).send('Message sent successfully');
+    ws.on('close', () => {
+        console.log('Client disconnected');
     });
 });
 
-// Route to serve messages to the frontend
-app.get('/messages', (req, res) => {
-    res.json(messages);
-});
-
-app.listen(3000, () => {
-    console.log('Server started on http://localhost:3000');
+server.listen(3000, () => {
+    console.log('Server is listening on port 3000');
 });
