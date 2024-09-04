@@ -1,84 +1,432 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Upload Box</title>
+    <title>Advanced Website with Message Board and PDF Gallery</title>
     <style>
-        /* Basic styling for the drag-and-drop box */
-        .upload-box {
-            width: 300px;
-            height: 200px;
-            border: 2px dashed #ccc;
-            border-radius: 10px;
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        nav {
+            background: #444;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 20px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #ff6347;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .hero {
+            background: url('https://via.placeholder.com/1200x400') no-repeat center center/cover;
+            height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
             text-align: center;
-            margin: 50px auto;
-            font-family: Arial, sans-serif;
-            color: #777;
-            transition: background-color 0.3s ease;
         }
-        .upload-box.hover {
-            background-color: #f0f0f0;
+
+        .hero h1 {
+            font-size: 3em;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
         }
-        .upload-box p {
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .content .box {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .content .box img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .content .box h3 {
+            color: #ff6347;
+        }
+
+        /* Image Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* PDF Gallery */
+        .pdf-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 15px;
+            margin-top: 30px;
+        }
+
+        .pdf-item {
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .pdf-item img {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .pdf-item a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 15px;
+            background: #333;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .pdf-item a:hover {
+            background: #ff6347;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: #f4f4f4;
+            padding: 40px 20px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .testimonials blockquote {
+            font-style: italic;
             margin: 0;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        .testimonials blockquote:before {
+            content: open-quote;
+            font-size: 4em;
+            color: #ff6347;
+            position: absolute;
+            left: -10px;
+            top: -10px;
+        }
+
+        .testimonials cite {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .contact-form button {
+            background: #333;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .contact-form button:hover {
+            background: #ff6347;
+        }
+
+        /* Message Board */
+        .message-board {
+            background: #e9e9e9;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 10px;
+        }
+
+        .message-board h2 {
+            margin-bottom: 20px;
+        }
+
+        .messages {
+            list-style: none;
             padding: 0;
         }
+
+        .messages li {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .content {
+                flex-direction: column;
+            }
+        }
     </style>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
 </head>
+
 <body>
 
-<div class="upload-box" id="upload-box">
-    <p>Drag & Drop your PDF here or click to upload</p>
-</div>
+    <header>
+        <h1>Welcome to My Advanced Website<br> 
+and <br>my name devnagar</h1>
+    </header>
 
-<script>
-    // JavaScript to handle drag-and-drop and file upload
-    const uploadBox = document.getElementById('upload-box');
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index2.html">About</a>
+        <a href="index3.html">Services</a>
+        <a href="index4.html">Gallery</a>
+        <a href="index5.html">Contact</a>
+        <a href="indexjava.html">java</a>
+    </nav>
 
-    uploadBox.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadBox.classList.add('hover');
-    });
+    <div class="hero">
+        <h1>Hero Section: Big Bold Statement</h1>
+    </div>
+   
 
-    uploadBox.addEventListener('dragleave', () => {
-        uploadBox.classList.remove('hover');
-    });
 
-    uploadBox.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadBox.classList.remove('hover');
-        const file = e.dataTransfer.files[0];
-        
-        if (file && file.type === 'application/pdf') {
-            alert(`PDF "${file.name}" uploaded successfully!`);
-            // Here you would handle the file upload to the server
-        } else {
-            alert('Please drop a valid PDF file.');
-        }
-    });
+        <!-- PDF Gallery -->
+        <section class="pdf-gallery">
+            <center>  <h2>java learning<br>makes zero to hero</h2></center>
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Introduction to java</h3>
+                <a href="C:\Users\Dev\Pictures\Camera Roll\dev\Java\Java_Complete_Notes\Chapter 0\IntroToJava.pdf" target="_blank">intro</a>
+            </div>
 
-    uploadBox.addEventListener('click', () => {
-        // Fallback for file upload by clicking the box
-        const input = document.createElement('input');
-        input.type = 'file';
-        input.accept = 'application/pdf';
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if (file && file.type === 'application/pdf') {
-                alert(`PDF "${file.name}" uploaded successfully!`);
-                // Here you would handle the file upload to the server
-            } else {
-                alert('Please select a valid PDF file.');
-            }
-        };
-        input.click();
-    });
-</script>
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Chapter 1: variables and datatypes</h3>
+                <a href="C:\Users\Dev\Pictures\Camera Roll\dev\Java\Java_Complete_Notes\Chapter 1\JavaChapter1.pdf" target="_blank">notes</a><br>
+                <a href="C:\Users\Dev\Pictures\Camera Roll\dev\Java\Java_Complete_Notes\Chapter 1\JavaChapter1PracticeSet.pdf" target="_blank">PracticeSet</a>
+            </div>
+            
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Chapter 2: operators and expression</h3>
+                <a href="C:\Users\Dev\Pictures\Camera Roll\dev\Java\Java_Complete_Notes\Chapter 2\Chapter2.pdf" target="_blank">notes</a><br>
+                <a href="C:\Users\Dev\Pictures\Camera Roll\dev\Java\Java_Complete_Notes\Chapter 2\Ch2_Practice.pdf" target="_blank">practice set </a>
+            </div>
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+
+            <div class="pdf-item">
+                <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="PDF Icon">
+                <h3>Document 3</h3>
+                <a href="path/to/your/document3.pdf" target="_blank">View PDF</a>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <!-- Add more PDF items as needed -->
+        </section>
+
+        <section class="testimonials">
+            <h2>What Our Clients Say</h2>
+            <blockquote>
+                "This company is amazing! They delivered everything as promised and more."
+                <cite>- Satisfied Customer</cite>
+            </blockquote>
+            <blockquote>
+                "A truly professional experience. I couldn't be happier with the results!"
+                <cite>- Another Happy Client</cite>
+            </blockquote>
+        </section>
+
+       
+
+    <footer>
+        <p>&copy; 2024 My Advanced Website. All rights reserved.</p>
+    </footer>
+
+
+    </script>
 
 </body>
-</html>
 
+</html>
