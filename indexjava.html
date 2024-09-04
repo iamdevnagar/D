@@ -1,1 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Upload Box</title>
+    <style>
+        /* Basic styling for the drag-and-drop box */
+        .upload-box {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 50px auto;
+            font-family: Arial, sans-serif;
+            color: #777;
+            transition: background-color 0.3s ease;
+        }
+        .upload-box.hover {
+            background-color: #f0f0f0;
+        }
+        .upload-box p {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="upload-box" id="upload-box">
+    <p>Drag & Drop your PDF here or click to upload</p>
+</div>
+
+<script>
+    // JavaScript to handle drag-and-drop and file upload
+    const uploadBox = document.getElementById('upload-box');
+
+    uploadBox.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadBox.classList.add('hover');
+    });
+
+    uploadBox.addEventListener('dragleave', () => {
+        uploadBox.classList.remove('hover');
+    });
+
+    uploadBox.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadBox.classList.remove('hover');
+        const file = e.dataTransfer.files[0];
+        
+        if (file && file.type === 'application/pdf') {
+            alert(`PDF "${file.name}" uploaded successfully!`);
+            // Here you would handle the file upload to the server
+        } else {
+            alert('Please drop a valid PDF file.');
+        }
+    });
+
+    uploadBox.addEventListener('click', () => {
+        // Fallback for file upload by clicking the box
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'application/pdf';
+        input.onchange = (e) => {
+            const file = e.target.files[0];
+            if (file && file.type === 'application/pdf') {
+                alert(`PDF "${file.name}" uploaded successfully!`);
+                // Here you would handle the file upload to the server
+            } else {
+                alert('Please select a valid PDF file.');
+            }
+        };
+        input.click();
+    });
+</script>
+
+</body>
+</html>
 
