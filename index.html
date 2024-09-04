@@ -158,6 +158,22 @@
             cursor: pointer;
         }
 
+        /* Image Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 15px;
+    margin-top: 30px;
+}
+
+.gallery img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
         .contact-form button:hover {
             background: #ff6347;
         }
@@ -214,45 +230,45 @@
 
 <body>
 
-    <header>
-        <h1>Welcome to My Advanced Website<br> 
-        <br>My name is Devnagar</h1>
-    </header>
-    <section class="gallery">
-            <h2>Learning Coding</h2>
-            
-                <img src="Untitled.png" alt="Java Logo">
-        
-        </section>
+ <header>
+    <h1>Welcome to My Advanced Website<br> 
+    <br>My name is Devnagar</h1>
+</header>
 
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="index2.html">About</a>
-        <a href="index3.html">Services</a>
-        <a href="index4.html">Gallery</a>
-        <a href="index5.html">Contact</a>
-       
-    </nav>
+<section class="gallery">
+    <h2>Learning Coding</h2>
+    <!-- Adding the Untitled.png logo -->
+    <img src="Untitled.png" alt="My Custom Logo" style="max-width: 100%; height: auto;">
+</section>
 
-    <div class="hero">
-        <h1>Hero Section: Big Bold Statement</h1>
-    </div>
+<nav>
+    <a href="index.html">Home</a>
+    <a href="index2.html">About</a>
+    <a href="index3.html">Services</a>
+    <a href="index4.html">Gallery</a>
+    <a href="index5.html">Contact</a>
+</nav>
 
-    <div class="container">
-        <section class="content">
-            <div class="box">
-                <h3>About Us</h3>
-                <p>Learn more about what we do and how we can help you.</p>
-            </div>
-            <div class="box">
-                <h3>Our Services</h3>
-                <p>We offer a variety of services to meet your needs. From web development to digital marketing, we've got you covered.</p>
-            </div>
-            <div class="box">
-                <h3>Latest Projects</h3>
-                <img src="https://via.placeholder.com/300x200" alt="Project">
-            </div>
-        </section>
+<div class="hero">
+    <h1>Hero Section: Big Bold Statement</h1>
+</div>
+
+<section class="gallery">
+    <h2>Learning Coding</h2>
+    <a href="indexjava.html">
+        <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="Java Logo">
+    </a>
+    <a href="indexpython.html">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
+    </a>
+    <a href="indexhtml.html">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/640px-HTML5_logo_and_wordmark.svg.png" alt="HTML5 Logo">
+    </a>
+    <a href="indexcss.html">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/640px-CSS3_logo_and_wordmark.svg.png" alt="CSS3 Logo">
+    </a>
+</section>
+
 
         <section class="gallery">
             <h2>Learning Coding</h2>
