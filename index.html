@@ -91,7 +91,7 @@
             margin-top: 30px;
         }
 
-        .gallery a img {
+        .gallery img {
             width: 100%;
             height: auto;
             display: block;
@@ -158,22 +158,6 @@
             cursor: pointer;
         }
 
-        /* Image Gallery */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 15px;
-    margin-top: 30px;
-}
-
-.gallery img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
         .contact-form button:hover {
             background: #ff6347;
         }
@@ -230,45 +214,44 @@
 
 <body>
 
- <header>
-    <h1>Welcome to My Advanced Website<br> 
-    <br>My name is Devnagar</h1>
-</header>
+    <header>
+        <h1>Welcome to My Advanced Website<br>
+            <br>My name is Devnagar</h1>
+    </header>
 
-<section class="gallery">
-    <h2>Learning Coding</h2>
-    <!-- Adding the Untitled.png logo -->
-    <img src="Untitled.png" alt="My Custom Logo" style="max-width: 100%; height: auto;">
-</section>
+    <section class="gallery">
+        <h2>Learning Coding</h2>
+        <!-- Adding the Untitled.png logo -->
+        <img src="Untitled.png" alt="My Custom Logo" style="max-width: 100%; height: auto;">
+    </section>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="index2.html">About</a>
-    <a href="index3.html">Services</a>
-    <a href="index4.html">Gallery</a>
-    <a href="index5.html">Contact</a>
-</nav>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="index2.html">About</a>
+        <a href="index3.html">Services</a>
+        <a href="index4.html">Gallery</a>
+        <a href="index5.html">Contact</a>
+    </nav>
 
-<div class="hero">
-    <h1>Hero Section: Big Bold Statement</h1>
-</div>
+    <div class="hero">
+        <h1>Hero Section: Big Bold Statement</h1>
+    </div>
 
-<section class="gallery">
-    <h2>Learning Coding</h2>
-    <a href="indexjava.html">
-        <img src="https://assets.leetcode.com/static_assets/public/images/landing_page/java.svg" alt="Java Logo">
-    </a>
-    <a href="indexpython.html">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" alt="Python Logo">
-    </a>
-    <a href="indexhtml.html">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/HTML5_logo_and_wordmark.svg/640px-HTML5_logo_and_wordmark.svg.png" alt="HTML5 Logo">
-    </a>
-    <a href="indexcss.html">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/CSS3_logo_and_wordmark.svg/640px-CSS3_logo_and_wordmark.svg.png" alt="CSS3 Logo">
-    </a>
-</section>
-
+    <div class="container">
+        <section class="content">
+            <div class="box">
+                <h3>About Us</h3>
+                <p>Learn more about what we do and how we can help you.</p>
+            </div>
+            <div class="box">
+                <h3>Our Services</h3>
+                <p>We offer a variety of services to meet your needs. From web development to digital marketing, we've got you covered.</p>
+            </div>
+            <div class="box">
+                <h3>Latest Projects</h3>
+                <img src="https://via.placeholder.com/300x200" alt="Project">
+            </div>
+        </section>
 
         <section class="gallery">
             <h2>Learning Coding</h2>
@@ -321,54 +304,63 @@
         <p>&copy; 2024 My Advanced Website. All rights reserved.</p>
     </footer>
 
-    <!-- JavaScript to Handle Message Board -->
     <script>
         // Firebase configuration
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-            databaseURL: "https://YOUR_PROJECT_ID.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_PROJECT_ID.appspot.com",
-            messagingSenderId: "YOUR_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "your-api-key",
+            authDomain: "your-auth-domain",
+            databaseURL: "your-database-url",
+            projectId: "your-project-id",
+            storageBucket: "your-storage-bucket",
+            messagingSenderId: "your-messaging-sender-id",
+            appId: "your-app-id"
         };
 
         // Initialize Firebase
         const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database(app);
+        const db = firebase.database();
 
-        const messageForm = document.getElementById('messageForm');
-        const messagesList = document.getElementById('messagesList');
+        // Reference messages collection
+        const messagesRef = db.ref('messages');
 
-        // Load messages from Firebase
-        function loadMessages() {
-            const messagesRef = firebase.database().ref('messages');
-            messagesRef.on('child_added', function(snapshot) {
-                const msg = snapshot.val();
-                const newMessage = document.createElement('li');
-                newMessage.innerHTML = `<strong>${msg.name}:</strong> <p>${msg.message}</p>`;
-                messagesList.appendChild(newMessage);
-            });
-        }
+        // Listen for form submit
+        document.getElementById('messageForm').addEventListener('submit', submitForm);
 
-        loadMessages();
+        // Submit form
+        function submitForm(e) {
+            e.preventDefault();
 
-        messageForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-
+            // Get values
             const name = document.getElementById('name').value;
             const message = document.getElementById('message').value;
 
-            // Save message to Firebase
-            const newMessageRef = firebase.database().ref('messages').push();
+            // Save message
+            saveMessage(name, message);
+
+            // Clear form
+            document.getElementById('messageForm').reset();
+        }
+
+        // Save message to Firebase
+        function saveMessage(name, message) {
+            const newMessageRef = messagesRef.push();
             newMessageRef.set({
                 name: name,
                 message: message
             });
+        }
 
-            // Clear the form
-            messageForm.reset();
+        // Retrieve messages and display
+        messagesRef.on('value', function (snapshot) {
+            const messagesList = document.getElementById('messagesList');
+            messagesList.innerHTML = ''; // Clear existing messages
+
+            snapshot.forEach(function (childSnapshot) {
+                const childData = childSnapshot.val();
+                const li = document.createElement('li');
+                li.textContent = `${childData.name}: ${childData.message}`;
+                messagesList.appendChild(li);
+            });
         });
     </script>
 
