@@ -20,6 +20,15 @@
             color: #fff;
             padding: 20px 0;
             text-align: center;
+            position: relative;
+        }
+
+        header img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            max-width: 50px; /* Adjust the size as needed */
+            height: auto;
         }
 
         nav {
@@ -206,10 +215,6 @@
             }
         }
     </style>
-
-    <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js"></script>
 </head>
 
 <body>
@@ -217,13 +222,9 @@
     <header>
         <h1>Welcome to My Advanced Website<br>
             <br>My name is Devnagar</h1>
+        <!-- Adding the Untitled.png logo in the top-right corner -->
+        <img src="Untitled.png" alt="My Custom Logo">
     </header>
-
-    <section class="gallery">
-        <h2>Learning Coding</h2>
-        <!-- Adding the Untitled.png logo -->
-        <img src="Untitled.png" alt="My Custom Logo" style="max-width: 100%; height: auto;">
-    </section>
 
     <nav>
         <a href="index.html">Home</a>
